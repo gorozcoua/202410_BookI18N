@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { BookService } from '../book.service';
 import { BookDetail } from '../bookDetail';
+import { error } from 'node:console';
 
 @Component({
   selector: 'app-book-list',
@@ -19,10 +20,11 @@ export class BookListComponent implements OnInit {
     this.getBooks();
   }
 
+
   getBooks(): void {
-    this.bookService.getBooks().subscribe((books) => {
-      this.books = books;
-    });
+
+    this.bookService.getBooks().subscribe({next: books =>    
+    this.books = books , error: e => console.error('mensaje: ' + e)});    
   }
 
   onSelected(book: BookDetail): void {
